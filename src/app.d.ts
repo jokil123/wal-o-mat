@@ -10,6 +10,7 @@ declare global {
   }
 
   type whaleValue = [number, number, number];
+  type answerType = "agree" | "neutral" | "disagree" | undefined;
 }
 
 export {};

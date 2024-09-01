@@ -3,6 +3,21 @@
 
   export let rounds: number;
   export let pointsVector: whaleValue;
+  export let whales: string[];
+  console.log(whales);
+
+  const whaleMap = new Map<string, number>();
+
+  whales.forEach((key: string, i: number) => {
+    whaleMap.set(key, pointsVector[i]);
+  });
+
+  const sortedWhaleMap = new Map(
+    [...whaleMap.entries()].sort((a, b) => b[1] - a[1])
+  );
+
+  console.log(whaleMap);
+  console.log(sortedWhaleMap);
 </script>
 
 <div>
@@ -10,7 +25,7 @@
     Ihr Wal-O-Mat Ergebnis
   </h2>
 
-  {#each pointsVector as point}
-    <Stat name="Cumwhale" score={point / rounds}></Stat>
+  {#each sortedWhaleMap as whale}
+    <Stat name={whale[0]} score={whale[1] / rounds}></Stat>
   {/each}
 </div>

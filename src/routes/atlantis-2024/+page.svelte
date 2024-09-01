@@ -17,14 +17,17 @@
   import logoMakreleDE from "$lib/assets/logos/logo_Makrele.jpg";
   import logoSächsischeSee from "$lib/assets/logos/logo_sächsische_see.jpg";
   import logoRiff24 from "$lib/assets/logos/logo_riff24.jpg";
+  import { redirect } from "@sveltejs/kit";
+  import { goto } from "$app/navigation";
 </script>
 
 <div class="mx-auto max-w-screen-md px-8 flex flex-col justify-start">
   <h1 class="text-9xl font-semibold mt-12">Wal-O-Mat</h1>
   <h2 class="text-3xl font-semibold mt-3">Atlantis 2024</h2>
 
-  <button class=" button px-16 py-3 font-bold text-2xl self-end mt-10"
-    >Start</button
+  <button
+    class=" button px-16 py-3 font-bold text-2xl self-end mt-10 hover:bg-white transition duration-300 ease-in"
+    on:click={() => goto("/quiz")}>Start</button
   >
 
   <p class="mt-16 text-lg">

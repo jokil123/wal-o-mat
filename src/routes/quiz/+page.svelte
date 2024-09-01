@@ -2,12 +2,16 @@
   import Quiz from "$lib/components/quiz.svelte";
   import Results from "$lib/components/results.svelte";
 
-  let answer: "agree" | "neutral" | "disagree" | undefined;
+  let answer: answerType;
   let currentQuestion = 1;
 
   let renderQuiz = true;
 
   let whalevalues: whaleValue = w(1, 2, 3);
+
+  let pointsVector: whaleValue = [0, 0, 0];
+
+  let whaleNames = ["bluewhale", "potwhale", "cumwhale"];
 
   function w(
     bluewhale: number,
@@ -17,14 +21,39 @@
     return [bluewhale, potwhale, cumwhale];
   }
 
-  let pointsVector: whaleValue = [0, 0, 0];
-
   function vecAdd(first: whaleValue, second: whaleValue): whaleValue {
     second.forEach((elm, i) => {
       second[i] = second[i] + first[i];
     });
 
     return second;
+  }
+
+  function nextQuestion() {
+    console.log(currentQuestion + " " + questions.length);
+
+    if (questions.length >= currentQuestion) {
+      if (answer == "agree") {
+        pointsVector = vecAdd(
+          pointsVector,
+          questions[currentQuestion - 1].agree
+        );
+      }
+      if (answer == "disagree") {
+        pointsVector = vecAdd(
+          pointsVector,
+          questions[currentQuestion - 1].disagree
+        );
+      }
+      console.log(pointsVector);
+
+      if (questions.length == currentQuestion) {
+        renderQuiz = false;
+      }
+    }
+    if (questions.length > currentQuestion) {
+      currentQuestion += 1;
+    }
   }
 
   const questions = [
@@ -55,33 +84,6 @@
       disagree: w(1, 0, 1),
     },
   ];
-
-  function nextQuestion() {
-    console.log(currentQuestion + " " + questions.length);
-
-    if (questions.length >= currentQuestion) {
-      if (answer == "agree") {
-        pointsVector = vecAdd(
-          pointsVector,
-          questions[currentQuestion - 1].agree
-        );
-      }
-      if (answer == "disagree") {
-        pointsVector = vecAdd(
-          pointsVector,
-          questions[currentQuestion - 1].disagree
-        );
-      }
-      console.log(pointsVector);
-
-      if (questions.length == currentQuestion) {
-        renderQuiz = false;
-      }
-    }
-    if (questions.length > currentQuestion) {
-      currentQuestion += 1;
-    }
-  }
 </script>
 
 <div class="mx-auto max-w-screen-md px-8 flex flex-col justify-start">
@@ -101,6 +103,7 @@
       }}
     />
   {:else}
-    <Results rounds={questions.length} {pointsVector}></Results>
+    <Results rounds={questions.length} {pointsVector} whales={whaleNames}
+    ></Results>
   {/if}
 </div>
