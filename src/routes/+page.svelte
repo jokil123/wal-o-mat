@@ -1,59 +1,25 @@
-<script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
-</script>
+<div class="mx-auto max-w-screen-md px-8 flex flex-col justify-start">
+  <h1 class="text-9xl font-semibold mt-12">Wal-O-Mat</h1>
+  <p class="text-3xl font-semibold mt-3">Atlantis 2024</p>
 
-<svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
-</svelte:head>
+  <button class=" button px-16 py-3 font-bold text-2xl self-end mt-10"
+    >Start</button
+  >
 
-<section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
-
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
-</section>
+  <p class="mt-16 text-lg">
+    13 von 14 Walarten, die zur Wahl im Ozean antreten, haben die
+    Wal-o-mat-Thesen beantwortet. Jetzt sind Sie an der Reihe: Vergleichen Sie
+    Ihre Standpunkte mit den Antworten der Walarten.
+  </p>
+  <p class="mt-4">
+    Der Wal-o-mat ist keine Empfehlung, welche Walart Sie wählen sollten,
+    sondern ein Informationsangebot über Wale und ihr Verhalten.
+  </p>
+</div>
 
 <style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
+  .button {
+    border-width: 3px;
+    color: rgb(91, 95, 253);
+  }
 </style>
