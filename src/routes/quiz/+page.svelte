@@ -5,9 +5,7 @@
   let answer: "agree" | "neutral" | "disagree" | undefined;
   let currentQuestion = 1;
 
-  let renderQuiz = false;
-
-  type whaleValue = [number, number, number];
+  let renderQuiz = true;
 
   let whalevalues: whaleValue = w(1, 2, 3);
 
@@ -32,29 +30,29 @@
   const questions = [
     {
       question: "Ich bevorzuge kältere Klimazonen gegenüber wärmeren.",
-      agree: w(1, 1, 1),
-      disagree: w(1, 1, 1),
+      agree: w(1, 0, 1),
+      disagree: w(0, 1, 1),
     },
     {
       question: "Ich genieße es, in großen Gruppen von Menschen zu sein.",
-      agree: w(1, 1, 1),
-      disagree: w(1, 1, 1),
+      agree: w(0, 1, 1),
+      disagree: w(0, 0, 1),
     },
     {
       question: "Ich bin ein starker und selbstbewusster Anführer.",
-      agree: w(1, 1, 1),
-      disagree: w(1, 1, 1),
+      agree: w(1, 0, 0),
+      disagree: w(1, 0, 1),
     },
     {
       question: "Ich liebe es, regelmäßig lange Strecken zu reisen.",
-      agree: w(1, 1, 1),
-      disagree: w(1, 1, 1),
+      agree: w(1, 0, 1),
+      disagree: w(1, 0, 1),
     },
     {
       question:
         "Ich bin für meine Intelligenz und meine Fähigkeit zur Problemlösung bekannt.",
-      agree: w(1, 1, 1),
-      disagree: w(1, 1, 1),
+      agree: w(0, 0, 1),
+      disagree: w(1, 0, 1),
     },
   ];
 
@@ -103,6 +101,6 @@
       }}
     />
   {:else}
-    <Results></Results>
+    <Results rounds={questions.length} {pointsVector}></Results>
   {/if}
 </div>
