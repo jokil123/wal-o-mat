@@ -13,7 +13,7 @@
       ></div>
     </div>
     <p class="text-5xl font-semibold pl-10 self-start m-0">
-      {score * 100}%
+      {(score * 100).toFixed(2)}%
     </p>
   </div>
 </div>

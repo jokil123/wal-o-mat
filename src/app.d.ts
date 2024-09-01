@@ -9,7 +9,18 @@ declare global {
     // interface Platform {}
   }
 
-  type whaleValue = [number, number, number];
+  type whaleValue = [
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number
+  ];
   type answerType = "agree" | "neutral" | "disagree" | undefined;
 }
 
