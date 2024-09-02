@@ -1,6 +1,8 @@
 <script lang="ts">
-  import bg from "$lib/assets/landingBackground.svg";
-  import logoWalOMat from "$lib/assets/wal-o-mat_logo.svg";
+  // this was a mess, to see why read this:
+  // https://github.com/vitejs/vite/issues/15986
+
+  import bg from "$lib/assets/landingBackground.svg?url";
 </script>
 
 <div
@@ -8,7 +10,7 @@
   class="absolute top-0 -z-50"
 >
   <div
-    style="background-image: url({bg}); background-size: 100% auto;"
+    style={`background-image: url("${bg}"); background-size: 100% auto;`}
     class="bg-no-repeat min-h-svh w-dvw"
   ></div>
 </div>
