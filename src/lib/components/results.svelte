@@ -19,12 +19,14 @@
   console.log(sortedWhaleMap);
 </script>
 
-<div>
-  <h2 class="text-6xl text-center mt-20 font-semibold pb-16">
+<div class="max-w-screen-md flex flex-col mx-auto px-6 lg:px-0">
+  <h2 class="text-3xl lg:text-6xl mt-10 font-semibold pb-8 max-w-screen-md">
     Ihr Wal-O-Mat Ergebnis
   </h2>
 
   {#each sortedWhaleMap as whale}
-    <Stat name={whale[0]} score={whale[1] / rounds}></Stat>
+    <div class="w-full">
+      <Stat name={whale[0]} score={whale[1] / rounds}></Stat>
+    </div>
   {/each}
 </div>

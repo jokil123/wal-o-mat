@@ -2,6 +2,7 @@
   import Quiz from "$lib/components/quiz.svelte";
   import Results from "$lib/components/results.svelte";
   import { questions } from "./questions";
+  import logoWalOMat from "$lib/assets/wal-o-mat_logo.svg";
 
   let answer: answerType;
   let currentQuestion = 1;
@@ -62,22 +63,26 @@
   }
 </script>
 
-<div class="mx-auto max-w-screen-md px-8 flex flex-col justify-start">
-  <h1 class="text-8xl font-semibold mt-12">Wal-O-Mat</h1>
-  <p class="text-2xl font-semibold mt-3">Atlantis 2024</p>
+<div
+  class="mx-auto max-w-screen-md mt-16 flex flex-col justify-start px-6 lg:px-0"
+>
+  <img src={logoWalOMat} alt="wal-o-mat logo" class="invert w-1/2" />
+  <p class="text-md font-semibold mt-3">Atlantis 2024</p>
 </div>
 
 <div class="mt-8 max-w-screen-xl mx-auto">
   {#if renderQuiz}
-    <Quiz
-      question={questions[currentQuestion - 1].question}
-      questionNr={currentQuestion}
-      questionNrMax={questions.length}
-      bind:answer
-      on:buttonclick={() => {
-        nextQuestion();
-      }}
-    />
+    <div class="mx-4">
+      <Quiz
+        question={questions[currentQuestion - 1].question}
+        questionNr={currentQuestion}
+        questionNrMax={questions.length}
+        bind:answer
+        on:buttonclick={() => {
+          nextQuestion();
+        }}
+      />
+    </div>
   {:else}
     <Results rounds={editedTotalQuestions} {pointsVector} whales={whaleNames}
     ></Results>
