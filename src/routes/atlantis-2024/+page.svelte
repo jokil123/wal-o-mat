@@ -19,6 +19,7 @@
   import logoRiff24 from "$lib/assets/logos/logo_riff24.jpg";
   import { redirect } from "@sveltejs/kit";
   import { goto } from "$app/navigation";
+  import { base } from "$app/paths";
 </script>
 
 <div class="mx-auto max-w-screen-md px-8 flex flex-col justify-start">
@@ -27,7 +28,7 @@
 
   <button
     class=" button px-16 py-3 font-bold text-2xl self-end mt-10 hover:bg-white transition duration-300 ease-in"
-    on:click={() => goto("/quiz")}>Start</button
+    on:click={() => goto(`${base}/quiz`)}>Start</button
   >
 
   <p class="mt-16 text-lg">

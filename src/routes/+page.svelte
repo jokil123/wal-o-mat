@@ -1,7 +1,7 @@
 <script lang="ts">
   import LandingBackground from "./LandingBackground.svelte";
+  import { base } from "$app/paths";
 
-  import bg from "$lib/assets/landingBackground.svg";
   import logoWalOMat from "$lib/assets/wal-o-mat_logo.svg";
 </script>
 
@@ -12,13 +12,13 @@
 >
   <img src={logoWalOMat} alt="wal-o-mat logo" />
   <h1 class="text-3xl my-14">
-    <a href="/atlantis-2024">→ Atlantis 2024 - Start</a>
+    <a href="{base}/atlantis-2024">→ Atlantis 2024 - Start</a>
   </h1>
-  <h2 class="text-2xl my-3"><a href="/info">→ Wal-O-Mat Info</a></h2>
+  <h2 class="text-2xl my-3"><a href="{base}/info">→ Wal-O-Mat Info</a></h2>
   <h2 class="text-2xl my-3">
-    <a href="/creation">→ Wie entsteht der Wal-O-Mat</a>
+    <a href="{base}/creation">→ Wie entsteht der Wal-O-Mat</a>
   </h2>
   <h2 class="text-2xl my-3">
-    <a href="/function">→ Wie funktioniert der Wal-O-Mat</a>
+    <a href="{base}/function">→ Wie funktioniert der Wal-O-Mat</a>
   </h2>
 </div>
