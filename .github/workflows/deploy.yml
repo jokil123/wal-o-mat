@@ -23,8 +23,8 @@ jobs:
 
       - name: build
         # Use this when deploying to a github pages default url
-        # env:
-          # BASE_PATH: '/${{ github.event.repository.name }}'
+        env:
+          BASE_PATH: '/${{ github.event.repository.name }}'
         run: |
           npm run build
 
