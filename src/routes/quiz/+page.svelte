@@ -10,7 +10,7 @@
   let pointsVector: whaleValue = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   let whaleNames = [
-    "Bluewal",
+    "Blauwal",
     "Buckelwal ",
     "Pottwal",
     "Orca",
@@ -65,6 +65,9 @@
           pointsVector,
           questions[currentQuestion - 1].agree
         );
+      }
+      if (answer == "neutral") {
+        editedTotalQuestions -= 1;
       }
       if (answer == "disagree") {
         pointsVector = vecAdd(
@@ -249,6 +252,10 @@
       disagree: w(1, 0, 0, 1, 0, 0, 1, 0, 1, 0),
     },
   ];
+
+  let editedTotalQuestions = questions.length; // to incorperate the neutral choice it gets subtracted 1 if neutral is pressed to not make the values atrificialy lower but to just ignore the question
+
+
 </script>
 
 <div class="mx-auto max-w-screen-md px-8 flex flex-col justify-start">
@@ -268,7 +275,7 @@
       }}
     />
   {:else}
-    <Results rounds={questions.length} {pointsVector} whales={whaleNames}
+    <Results rounds={editedTotalQuestions} {pointsVector} whales={whaleNames}
     ></Results>
   {/if}
 </div>
