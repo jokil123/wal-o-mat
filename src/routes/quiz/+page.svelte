@@ -67,7 +67,7 @@
   class="mx-auto max-w-screen-lg mt-16 flex flex-col justify-start px-6 lg:px-0"
 >
   <img src={logoWalOMat} alt="wal-o-mat logo" class="invert w-1/2" />
-  <p class="text-md font-semibold mt-3">Atlantis 2024</p>
+  <p class="text-md font-semibold mt-3 lg:text-2xl">Atlantis 2024</p>
 </div>
 
 <div class="mt-8 max-w-screen-xl mx-auto">
