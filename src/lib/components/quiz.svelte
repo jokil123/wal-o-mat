@@ -1,5 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
+  import { cubicIn, cubicOut } from "svelte/easing";
   import { fly } from "svelte/transition";
 
   export let questionNr: number;
@@ -17,8 +18,8 @@
 {#key questionNr}
   <div
     class="border-2 lg:w-10/12 lg:mx-auto py-3 px-10 bg-black"
-    in:fly={{ x: 200, delay: 300, duration: 300 }}
-    out:fly={{ x: -200, duration: 300 }}
+    in:fly={{ x: 200, delay: 300, duration: 300, easing: cubicOut }}
+    out:fly={{ x: -200, duration: 300, easing: cubicOut }}
   >
     <p class="font-semibold text-lg lg:text-2xl lg:pb-8 pt-3">
       Frage {questionNr}/{questionNrMax}

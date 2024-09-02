@@ -6,7 +6,7 @@
 
   let answer: answerType;
   let currentQuestion = 1;
-  let editedTotalQuestions = questions.length; // to incorperate the neutral choice it gets subtracted 1 if neutral is pressed to not make the values atrificialy lower but to just ignore the question
+  let editedTotalQuestions = questions.length; // to incorperate the neutral choice it gets subtracted 1 if neutral is pressed to not make the values artificially lower but to just ignore the question
 
   let renderQuiz = true;
 
