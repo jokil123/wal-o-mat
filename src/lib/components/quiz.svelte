@@ -16,7 +16,7 @@
 
 {#key questionNr}
   <div
-    class="border-2 lg:w-10/12 lg:mx-auto py-3 px-10"
+    class="border-2 lg:w-10/12 lg:mx-auto py-3 px-10 bg-black"
     in:fly={{ x: 200, delay: 300, duration: 300 }}
     out:fly={{ x: -200, duration: 300 }}
   >
@@ -35,7 +35,7 @@
           answer = "agree";
           handleClick("agree");
         }}
-        class="border-2 w-full lg:w-1/3 mb-3 lg:mb-0 py-1 lg:mr-3 hover:bg-white hover:text-black transition-colors ease-in duration-200 mr-2"
+        class="border-2 w-full lg:w-1/3 mb-3 lg:mb-0 py-1 lg:mr-3 hover:bg-white hover:text-black hover:border-black transition-colors ease-in duration-200 mr-2"
         >stimme zu</button
       >
       <button
@@ -43,7 +43,7 @@
           answer = "neutral";
           handleClick("neutral");
         }}
-        class="border-2 w-full lg:w-1/3 mb-3 lg:mb-0 py-1 lg:mr-3 hover:bg-white hover:text-black transition-colors ease-in duration-200 mr-2"
+        class="border-2 w-full lg:w-1/3 mb-3 lg:mb-0 py-1 lg:mr-3 hover:bg-white hover:text-black hover:border-black transition-colors ease-in duration-200 mr-2"
         >neutral</button
       >
       <button
@@ -51,7 +51,7 @@
           answer = "disagree";
           handleClick("disagree");
         }}
-        class="border-2 w-full lg:w-1/3 mb-3 lg:mb-0 py-1 lg:mr-3 hover:bg-white hover:text-black transition-colors ease-in duration-200"
+        class="border-2 w-full lg:w-1/3 mb-3 lg:mb-0 py-1 lg:mr-3 hover:bg-white hover:text-black hover:border-black transition-colors ease-in duration-200"
         >stimme nicht zu</button
       >
     </div>

@@ -83,8 +83,33 @@
         }}
       />
     </div>
+    <div class="flex gap-3 my-16 mx-10 justify-center">
+      {#each questions as question, i}
+        <div
+          class="relative w-[11px] h-[11px] rounded-full bg-[#808080] {i ==
+            currentQuestion &&
+            'bg-white outline outline-2 outline-white outline-offset-2'}"
+        >
+          <!-- goofy arrow -->
+          {#if i == currentQuestion}
+            <div class="absolute triangle bottom-6 left-1.5 -z-10"></div>
+          {/if}
+        </div>
+      {/each}
+    </div>
   {:else}
     <Results rounds={editedTotalQuestions} {pointsVector} whales={whaleNames}
     ></Results>
   {/if}
 </div>
+
+<style lang="scss">
+  .triangle {
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 0 60px 60px 0px;
+    border-color: transparent transparent white transparent;
+    transform: rotate(90deg);
+  }
+</style>
