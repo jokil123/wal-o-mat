@@ -1,7 +1,7 @@
 <script lang="ts">
   import Quiz from "$lib/components/quiz.svelte";
   import Results from "$lib/components/results.svelte";
-  import { questions } from "./questions";
+  import { questions } from "../../lib/questions";
   import logoWalOMat from "$lib/assets/wal-o-mat_logo.svg";
 
   let answer: answerType;
@@ -34,6 +34,7 @@
   }
 
   function nextQuestion() {
+    console.log("next question");
     if (questions.length >= currentQuestion) {
       if (answer == "agree") {
         pointsVector = vecAdd(
@@ -57,10 +58,12 @@
         renderQuiz = false; // switch to results mode
       }
     }
-    if (questions.length > currentQuestion) {
-      currentQuestion += 1; // go to the next question
-    }
+
+    currentQuestion += 1; // go to the next question
+    console.log(currentQuestion);
   }
+
+  console.log(currentQuestion);
 </script>
 
 <div
@@ -74,9 +77,9 @@
   {#if renderQuiz}
     <div class="mx-4">
       <Quiz
-        question={questions[currentQuestion - 1].question}
-        questionNr={currentQuestion}
-        questionNrMax={questions.length}
+        {questions}
+        {currentQuestion}
+        totalQuestions={questions.length}
         bind:answer
         on:buttonclick={() => {
           nextQuestion();
