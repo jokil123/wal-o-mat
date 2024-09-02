@@ -4,7 +4,6 @@
   export let rounds: number;
   export let pointsVector: whaleValue;
   export let whales: string[];
-  console.log(whales);
 
   const whaleMap = new Map<string, number>();
 

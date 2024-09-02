@@ -1,16 +1,16 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
 
+  export let questionNr: number;
+  export let questionNrMax: number;
+  export let question: string;
+  export let answer: "agree" | "neutral" | "disagree" | undefined;
+
   const dispatch = createEventDispatcher();
 
   function handleClick(buttonName: any) {
     dispatch("buttonclick", { button: buttonName });
   }
-
-  export let questionNr: number;
-  export let questionNrMax: number;
-  export let question: string;
-  export let answer: "agree" | "neutral" | "disagree" | undefined;
 </script>
 
 <div class="border w-full px-10">
