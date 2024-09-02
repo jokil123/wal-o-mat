@@ -1,5 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
+  import { onMount } from "svelte";
 
   export let totalQuestions: number;
   export let answer: "agree" | "neutral" | "disagree" | undefined;
@@ -27,8 +28,6 @@
     }
 
     return result;
-
-    console.log(totalQuestions);
   }
 </script>
 
@@ -36,17 +35,17 @@
   <div class="flex w-10/12 relative">
     {#each range(1, questions.length) as t}
       <div
-        class="flex flex-col translate-x-0 absolute transition-all duration-100 w-full max-w-screen-xl {currentQuestion <
-        t
-          ? 'translate-x-[100vw]'
-          : ''}
-
-        {currentQuestion > t ? 'translate-x-[-100vw]' : ''}
+        class="flex flex-col translate-x-0 absolute top-0 bottom-0 transition-all duration-100 w-full max-w-screen-xl
+          {currentQuestion < t ? 'translate-x-[100vw]' : ''}
+          {currentQuestion > t ? 'translate-x-[-100vw]' : ''}
+          
         
         "
       >
         <div class="lg:w-10/12 lg:mx-auto">
-          <div class=" bg-black border-2 py-3 px-10 question-container">
+          <div
+            class=" bg-black border-2 py-3 px-10 question-container h-[320px]"
+          >
             <div class="relative w-full">
               <p class="font-semibold text-lg lg:text-2xl lg:pb-8 pt-3">
                 Frage {t}/{totalQuestions}
@@ -91,16 +90,25 @@
         </div>
         <div
           class="w-10/12 mx-auto"
-          style="transform: translateX(calc({((currentQuestion - 1) /
-            questions.length) *
-            100}% ));"
+          style="
+            width: calc(83.333333% - 60px)
+            transform: translateX(-30px)"
         >
-          <div class="triangle"></div>
+          <div
+            class="triangle"
+            style="transform: translateX({((currentQuestion - 1) /
+              (questions.length - 1)) *
+              1340}%) rotate(90deg); "
+          ></div>
         </div>
       </div>
     {/each}
     <div class="w-full left-1/4">
-      <div class="w-10/12 max-w-screen-lg flex flex-row">
+      <div
+        class="max-w-screen-lg flex flex-row mx-auto w-full justify-between"
+        style="transform: translateY(400px) translateX(-30px); 
+        width: calc(83.333333% - 60px + 11px);"
+      >
         {#each questions as question, i}
           <div class="w-full">
             <div
@@ -122,6 +130,5 @@
     border-style: solid;
     border-width: 0 60px 60px 0px;
     border-color: transparent transparent white transparent;
-    transform: rotate(90deg);
   }
 </style>
