@@ -72,16 +72,28 @@
 
 <div class="mt-8 max-w-screen-xl mx-auto">
   {#if renderQuiz}
-    <div class="mx-4">
-      <Quiz
-        question={questions[currentQuestion - 1].question}
-        questionNr={currentQuestion}
-        questionNrMax={questions.length}
-        bind:answer
-        on:buttonclick={() => {
-          nextQuestion();
-        }}
-      />
+    <!-- track container -->
+    <div class="overflow-clip w-dvw">
+      <!-- track -->
+      <div
+        class="flex transition-transform duration-500 ease-in-out"
+        style:width="{questions.length * 100}dvw"
+        style:transform="translateX({(currentQuestion - 1) * -100}dvw)"
+      >
+        {#each questions as question, i}
+          <div class="w-dvw mx-4">
+            <Quiz
+              question={questions[i].question}
+              questionNr={i + 1}
+              questionNrMax={questions.length}
+              bind:answer
+              on:buttonclick={() => {
+                nextQuestion();
+              }}
+            />
+          </div>
+        {/each}
+      </div>
     </div>
     <div class="flex gap-3 my-16 mx-10 justify-center">
       {#each questions as question, i}
