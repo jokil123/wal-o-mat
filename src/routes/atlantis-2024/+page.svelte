@@ -1,7 +1,7 @@
 <script>
   import logoBPD from "$lib/assets/logos/logo_bundeszentrale.png";
   import logoBLPB from "$lib/assets/logos/logo_wasserburg_poli.png";
-
+  import logoWalOMat from "$lib/assets/wal-o-mat_logo.svg";
   import logoSeelachs from "$lib/assets/logos/logo_derseelachs.jpg";
   import logoWelle from "$lib/assets/logos/logo_welle.jpg";
   import logoZDF from "$lib/assets/logos/logo_zdf.jpg";
@@ -22,8 +22,8 @@
   import { base } from "$app/paths";
 </script>
 
-<div class="mx-auto max-w-screen-md px-8 flex flex-col justify-start">
-  <h1 class="text-9xl font-semibold mt-12">Wal-O-Mat</h1>
+<div class="mx-auto max-w-screen-md px-8 flex flex-col justify-start mt-12">
+  <img src={logoWalOMat} alt="wal-o-mat logo" class="invert w-full" />
   <h2 class="text-3xl font-semibold mt-3">Atlantis 2024</h2>
 
   <button

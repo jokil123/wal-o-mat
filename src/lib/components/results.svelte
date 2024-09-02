@@ -19,7 +19,7 @@
   console.log(sortedWhaleMap);
 </script>
 
-<div class="max-w-screen-md flex flex-col mx-auto px-6 lg:px-0">
+<div class="max-w-screen-lg flex flex-col mx-auto px-6 lg:px-0">
   <h2 class="text-3xl lg:text-6xl mt-10 font-semibold pb-8 max-w-screen-md">
     Ihr Wal-O-Mat Ergebnis
   </h2>

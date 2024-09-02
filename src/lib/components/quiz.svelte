@@ -13,7 +13,7 @@
   }
 </script>
 
-<div class="border-2 lg:w-2/3 lg:mx-auto py-3 px-10">
+<div class="border-2 lg:w-10/12 lg:mx-auto py-3 px-10">
   <p class="font-semibold text-lg lg:text-2xl lg:pb-8 pt-3">
     Frage {questionNr}/{questionNrMax}
   </p>

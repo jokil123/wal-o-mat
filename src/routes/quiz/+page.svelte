@@ -64,7 +64,7 @@
 </script>
 
 <div
-  class="mx-auto max-w-screen-md mt-16 flex flex-col justify-start px-6 lg:px-0"
+  class="mx-auto max-w-screen-lg mt-16 flex flex-col justify-start px-6 lg:px-0"
 >
   <img src={logoWalOMat} alt="wal-o-mat logo" class="invert w-1/2" />
   <p class="text-md font-semibold mt-3">Atlantis 2024</p>
