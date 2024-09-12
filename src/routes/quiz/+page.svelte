@@ -75,6 +75,7 @@
 
 <div class="mt-8 max-w-screen-xl mx-auto">
   {#if renderQuiz}
+
     <div class="mx-4">
       <Quiz
         {questions}
@@ -85,9 +86,21 @@
           nextQuestion();
         }}
       />
+
     </div>
   {:else}
     <Results rounds={editedTotalQuestions} {pointsVector} whales={whaleNames}
     ></Results>
   {/if}
 </div>
+
+<style lang="scss">
+  .triangle {
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 0 60px 60px 0px;
+    border-color: transparent transparent white transparent;
+    transform: rotate(90deg);
+  }
+</style>

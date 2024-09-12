@@ -31,6 +31,7 @@
   }
 </script>
 
+
 <div class="relative">
   <div class="flex w-10/12 relative">
     {#each range(1, questions.length) as t}
@@ -132,3 +133,4 @@
     border-color: transparent transparent white transparent;
   }
 </style>
+
