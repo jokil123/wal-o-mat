@@ -24,7 +24,7 @@ function w(
   ];
 }
 
-export const questions = [
+export const questions: Question[] = [
   {
     question: "Ich bevorzuge kältere Klimazonen gegenüber wärmeren.",
     agree: w(1, 0, 0, 0, 1, 1, 0, 0, 1, 1),

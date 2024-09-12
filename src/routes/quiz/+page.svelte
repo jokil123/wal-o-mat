@@ -1,7 +1,7 @@
 <script lang="ts">
   import Quiz from "$lib/components/quiz.svelte";
   import Results from "$lib/components/results.svelte";
-  import { questions } from "./questions";
+  import { questions } from "../../lib/questions";
   import logoWalOMat from "$lib/assets/wal-o-mat_logo.svg";
 
   let answer: answerType;
@@ -34,6 +34,7 @@
   }
 
   function nextQuestion() {
+    console.log("next question");
     if (questions.length >= currentQuestion) {
       if (answer == "agree") {
         pointsVector = vecAdd(
@@ -57,10 +58,12 @@
         renderQuiz = false; // switch to results mode
       }
     }
-    if (questions.length > currentQuestion) {
-      currentQuestion += 1; // go to the next question
-    }
+
+    currentQuestion += 1; // go to the next question
+    console.log(currentQuestion);
   }
+
+  console.log(currentQuestion);
 </script>
 
 <div
@@ -72,42 +75,18 @@
 
 <div class="mt-8 max-w-screen-xl mx-auto">
   {#if renderQuiz}
-    <!-- track container -->
-    <div class="overflow-clip w-dvw">
-      <!-- track -->
-      <div
-        class="flex transition-transform duration-500 ease-in-out"
-        style:width="{questions.length * 100}dvw"
-        style:transform="translateX({(currentQuestion - 1) * -100}dvw)"
-      >
-        {#each questions as question, i}
-          <div class="w-dvw mx-4">
-            <Quiz
-              question={questions[i].question}
-              questionNr={i + 1}
-              questionNrMax={questions.length}
-              bind:answer
-              on:buttonclick={() => {
-                nextQuestion();
-              }}
-            />
-          </div>
-        {/each}
-      </div>
-    </div>
-    <div class="flex gap-3 my-16 mx-10 justify-center">
-      {#each questions as question, i}
-        <div
-          class="relative w-[11px] h-[11px] rounded-full bg-[#808080] {i ==
-            currentQuestion &&
-            'bg-white outline outline-2 outline-white outline-offset-2'}"
-        >
-          <!-- goofy arrow -->
-          {#if i == currentQuestion}
-            <div class="absolute triangle bottom-6 left-1.5 -z-10"></div>
-          {/if}
-        </div>
-      {/each}
+
+    <div class="mx-4">
+      <Quiz
+        {questions}
+        {currentQuestion}
+        totalQuestions={questions.length}
+        bind:answer
+        on:buttonclick={() => {
+          nextQuestion();
+        }}
+      />
+
     </div>
   {:else}
     <Results rounds={editedTotalQuestions} {pointsVector} whales={whaleNames}

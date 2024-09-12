@@ -22,6 +22,12 @@ declare global {
     number
   ];
   type answerType = "agree" | "neutral" | "disagree" | undefined;
+
+  type Question = {
+    question: string;
+    agree: WeightArray;
+    disagree: WeightArray;
+  };
 }
 
 export {};
