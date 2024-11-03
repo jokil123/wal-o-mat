@@ -31,7 +31,6 @@
   }
 </script>
 
-
 <div class="relative">
   <div class="flex w-10/12 relative">
     {#each range(1, questions.length) as t}
@@ -96,7 +95,7 @@
             transform: translateX(-30px)"
         >
           <div
-            class="triangle"
+            class="triangle hidden lg:flex"
             style="transform: translateX({((currentQuestion - 1) /
               (questions.length - 1)) *
               1340}%) rotate(90deg); "
@@ -133,4 +132,3 @@
     border-color: transparent transparent white transparent;
   }
 </style>
-

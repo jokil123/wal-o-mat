@@ -41,7 +41,7 @@
     sondern ein Informationsangebot über Wale und ihr Verhalten.
   </p>
 
-  <div class="flex items-center gap-8 my-14">
+  <div class="flex items-center gap-8 my-14 flex-wrap">
     <img class="max-w-52" src={logoBPD} alt="bundeszentrale fisch bildung" />
     <img class="max-w-52" src={logoBLPB} alt="brandenburg meereszentrale" />
   </div>
