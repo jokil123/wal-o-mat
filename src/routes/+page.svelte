@@ -16,9 +16,9 @@
   </h1>
   <h2 class="text-2xl my-3"><a href="{base}/info">→ Wal-O-Mat Info</a></h2>
   <h2 class="text-2xl my-3">
-    <a href="{base}/creation">→ Wie entsteht der Wal-O-Mat</a>
+    <a href="{base}/info">→ Wie entsteht der Wal-O-Mat</a>
   </h2>
   <h2 class="text-2xl my-3">
-    <a href="{base}/function">→ Wie funktioniert der Wal-O-Mat</a>
+    <a href="{base}/info">→ Wie funktioniert der Wal-O-Mat</a>
   </h2>
 </div>
