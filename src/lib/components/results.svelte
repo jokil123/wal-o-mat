@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Stat from "./Stat.svelte";
+  import WhaleInfo from "./WhaleInfo.svelte";
 
   export let rounds: number;
   export let pointsVector: whaleValue;
@@ -20,13 +20,18 @@
 </script>
 
 <div class="max-w-screen-lg flex flex-col mx-auto px-6 lg:px-0">
-  <h2 class="text-3xl lg:text-6xl mt-10 font-semibold pb-8 max-w-screen-md">
+  <h2
+    class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-10 font-semibold pb-8 max-w-screen-md"
+  >
     Ihr Wal-O-Mat Ergebnis
   </h2>
 
-  {#each sortedWhaleMap as whale}
-    <div class="w-full">
-      <Stat name={whale[0]} score={whale[1] / rounds}></Stat>
-    </div>
+  {#each sortedWhaleMap as whale, i}
+    <WhaleInfo
+      whaleName={whale[0]}
+      waleScore={whale[1]}
+      {rounds}
+      infoExpanded={i == 0}
+    />
   {/each}
 </div>

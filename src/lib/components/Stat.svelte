@@ -1,10 +1,8 @@
 <script lang="ts">
-  export let name: string;
   export let score: number;
 </script>
 
-<div class="mx-auto w-full mb-6" style="--bar-width: {score * 100}%">
-  <p class="text-2xl lg:text-3xl font-semibold pb-3">{name}</p>
+<div class="mx-auto w-full" style="--bar-width: {score * 100}%">
   <div class="flex items-stretch align-bottom">
     <div
       class="relative w-full bar-wrapper after:h-3 after:w-full lg:after:h-5"
