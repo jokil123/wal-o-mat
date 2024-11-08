@@ -1,5 +1,6 @@
 <script lang="ts">
-    import type { AnswerType, Question } from "$lib/questions";
+    import type { AnswerType, Question } from "$lib/question";
+    import { range } from "$lib/util";
     import { createEventDispatcher } from "svelte";
 
     export let answer: AnswerType = "neutral";
@@ -14,23 +15,11 @@
         dispatch("buttonclick", { button: buttonName });
         setTimeout(() => (clicked = false), 50);
     }
-
-    export function range(from: number, to: number) {
-        const result = [];
-        let i = from;
-
-        while (i <= to) {
-            result.push(i);
-            i += 1;
-        }
-
-        return result;
-    }
 </script>
 
 <div class="relative">
     <div class="flex w-10/12 relative">
-        {#each range(1, questions.length) as t}
+        {#each range(0, questions.length - 1) as t}
             <div
                 class="flex flex-col translate-x-0 absolute top-0 bottom-0 transition-all duration-100 w-full max-w-screen-xl
           {currentQuestionIndex < t ? 'translate-x-[100vw]' : ''}
@@ -47,11 +36,11 @@
                             <p
                                 class="font-semibold text-lg lg:text-2xl lg:pb-8 pt-3"
                             >
-                                Frage {t}/{questions.length}
+                                Frage {t + 1}/{questions.length}
                             </p>
 
                             <p class="text-xl lg:text-4xl pt-2">
-                                {questions[t - 1].question}
+                                {questions[t].question}
                             </p>
                             <div
                                 class="pb-8 pt-5 lg:pt-16 font-semibold flex flex-col lg:flex-row w-4/6 lg:w-10/12 mx-auto lg:mx-0 text-lg"
@@ -113,7 +102,7 @@
                     <div class="w-full">
                         <div
                             class="z-20 w-[11px] h-[11px] rounded-full bg-[#808080] {i ==
-                                currentQuestionIndex - 1 &&
+                                currentQuestionIndex &&
                                 'bg-white outline outline-2 outline-white outline-offset-2'}"
                         ></div>
                     </div>

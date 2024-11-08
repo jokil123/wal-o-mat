@@ -1,21 +1,4 @@
-export type Question = {
-    question: string;
-    weights: WhaleWeights;
-};
-
-export type WhaleWeights = {
-    blauwal: number;
-    buckelwal: number;
-    pottwal: number;
-    orca: number;
-    grauwal: number;
-    zwergwal: number;
-    belugawal: number;
-    narwal: number;
-    delfin: number;
-};
-
-export type AnswerType = "agree" | "neutral" | "disagree";
+import type { Question } from "./question";
 
 export const questions: Question[] = [
     {

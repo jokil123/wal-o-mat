@@ -1,29 +1,20 @@
 <script lang="ts">
-    import Quiz from "$lib/components/quiz.svelte";
-    import {
-        questions,
-        type AnswerType,
-        type Question,
-        type WhaleWeights,
-    } from "../../lib/questions";
+    import Quiz from "$lib/components/Quiz.svelte";
     import logoWalOMat from "$lib/assets/wal-o-mat_logo.svg";
     import { results } from "$lib/stores/results";
     import { goto } from "$app/navigation";
+    import {
+        newEmptyWeights,
+        type AnswerType,
+        type Question,
+        type WhaleWeights,
+    } from "$lib/question";
+    import { questions } from "$lib/questionData";
 
     let answer: AnswerType;
-    let currentQuestion = 0;
+    let currentQuestionIndex = 0;
 
-    let points: WhaleWeights = {
-        blauwal: 0,
-        buckelwal: 0,
-        pottwal: 0,
-        orca: 0,
-        grauwal: 0,
-        zwergwal: 0,
-        belugawal: 0,
-        narwal: 0,
-        delfin: 0,
-    };
+    let points = newEmptyWeights();
 
     function addAnswerWeights(q: Question, a: AnswerType) {
         let m; // answer modifier
@@ -55,12 +46,14 @@
 
     function submitQuestion() {
         console.log("next question");
-        if (currentQuestion < questions.length - 1) {
-            addAnswerWeights(questions[currentQuestion], answer);
-            currentQuestion++;
+
+        if (currentQuestionIndex >= questions.length - 1) {
+            gotoResults();
+            return;
         }
 
-        gotoResults();
+        addAnswerWeights(questions[currentQuestionIndex], answer);
+        currentQuestionIndex++;
     }
 
     function gotoResults() {
@@ -80,8 +73,7 @@
     <div class="mx-4">
         <Quiz
             {questions}
-            currentQuestionIndex={currentQuestion}
-            totalQuestions={questions.length}
+            {currentQuestionIndex}
             bind:answer
             on:buttonclick={() => {
                 submitQuestion();

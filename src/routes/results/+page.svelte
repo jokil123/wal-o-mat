@@ -1,7 +1,32 @@
 <script lang="ts">
-    import Results from "$lib/components/results.svelte";
-
+    import { browser } from "$app/environment";
+    import { goto } from "$app/navigation";
     import logoWalOMat from "$lib/assets/wal-o-mat_logo.svg";
+    import WhaleInfo from "$lib/components/WhaleInfo.svelte";
+
+    import {
+        newEmptyWeights,
+        sortedWeights,
+        type WhaleWeights,
+    } from "$lib/question";
+    import { questions } from "$lib/questionData";
+    import { results } from "$lib/stores/results";
+
+    let sortedResults: [string, number][] = [];
+    $: tryLoadResults($results);
+
+    function tryLoadResults(r: WhaleWeights | null) {
+        if (!browser) {
+            return;
+        }
+
+        if (!r) {
+            goto("/quiz");
+            return;
+        }
+
+        sortedResults = sortedWeights(r);
+    }
 </script>
 
 <div
@@ -12,8 +37,22 @@
 </div>
 
 <div class="mt-8 max-w-screen-xl mx-auto">
-    <Results rounds={editedTotalQuestions} {pointsVector} whales={whaleNames}
-    ></Results>
+    <div class="max-w-screen-lg flex flex-col mx-auto px-6 lg:px-0">
+        <h2
+            class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-10 font-semibold pb-8 max-w-screen-md"
+        >
+            Ihr Wal-O-Mat Ergebnis
+        </h2>
+
+        {#each sortedResults as whale, i}
+            <WhaleInfo
+                whaleName={whale[0]}
+                waleScore={whale[1]}
+                rounds={questions.length}
+                infoExpanded={i == 0}
+            />
+        {/each}
+    </div>
 </div>
 
 <style lang="scss">
