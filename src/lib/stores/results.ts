@@ -1,7 +1,11 @@
 import { browser } from "$app/environment";
-import { newEmptyWeights, type WhaleWeights } from "$lib/question";
-import { json } from "@sveltejs/kit";
+import type { WhaleWeights } from "$lib/question";
 import { writable, type Writable } from "svelte/store";
+
+export type QuizResult = {
+    answeredQuestions: number;
+    scores: WhaleWeights;
+};
 
 // Get the value out of storage on load.
 let stored;
@@ -14,7 +18,7 @@ if (browser) {
 }
 
 // Set the stored value or a sane default.
-export const results: Writable<WhaleWeights | null> = writable(stored || null);
+export const results: Writable<QuizResult | null> = writable(stored || null);
 
 // Anytime the store changes, update the local storage value.
 results.subscribe((value) => {

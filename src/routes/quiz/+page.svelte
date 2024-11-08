@@ -7,15 +7,14 @@
         addAnswerWeights,
         newEmptyWeights,
         type AnswerType,
-        type Question,
-        type WhaleWeights,
     } from "$lib/question";
     import { questions } from "$lib/questionData";
 
     let answer: AnswerType;
     let currentQuestionIndex = 0;
+    let answeredQuestions = 0;
 
-    let points = newEmptyWeights();
+    let scores = newEmptyWeights();
 
     function submitQuestion() {
         console.log("next question");
@@ -25,16 +24,23 @@
             return;
         }
 
-        points = addAnswerWeights(
-            points,
+        scores = addAnswerWeights(
+            scores,
             questions[currentQuestionIndex],
             answer
         );
+
         currentQuestionIndex++;
+        if (answer != "neutral") {
+            answeredQuestions++;
+        }
     }
 
     function gotoResults() {
-        results.set(points);
+        results.set({
+            scores: scores,
+            answeredQuestions: answeredQuestions,
+        });
         goto("/results");
     }
 </script>

@@ -10,12 +10,13 @@
         type WhaleWeights,
     } from "$lib/question";
     import { questions } from "$lib/questionData";
-    import { results } from "$lib/stores/results";
+    import { results, type QuizResult } from "$lib/stores/results";
 
     let sortedResults: [string, number][] = [];
+    let answeredQuestions = 0;
     $: tryLoadResults($results);
 
-    function tryLoadResults(r: WhaleWeights | null) {
+    function tryLoadResults(r: QuizResult | null) {
         if (!browser) {
             return;
         }
@@ -25,7 +26,8 @@
             return;
         }
 
-        sortedResults = sortedWeights(r);
+        sortedResults = sortedWeights(r.scores);
+        answeredQuestions = r.answeredQuestions;
     }
 </script>
 
@@ -48,7 +50,7 @@
             <WhaleInfo
                 whaleName={whale[0]}
                 waleScore={whale[1]}
-                rounds={questions.length}
+                completedRounds={answeredQuestions}
                 infoExpanded={i == 0}
             />
         {/each}

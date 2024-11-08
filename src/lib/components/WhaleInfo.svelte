@@ -2,9 +2,10 @@
     import Stat from "./Stat.svelte";
     import chevron from "$lib/assets/chevron.png";
     import { whalesInfo, type WhaleInfo } from "$lib/whaleInfo";
+    import { remap } from "$lib/util";
 
     export let whaleName: string;
-    export let rounds: number;
+    export let completedRounds: number;
     export let waleScore: number;
 
     let whaleInfo: WhaleInfo | undefined = whalesInfo.find((i) => {
@@ -29,7 +30,7 @@
             />
         </button>
     </div>
-    <Stat score={(waleScore / rounds) * 0.5 + 0.5}></Stat>
+    <Stat score={remap(-1, 1, 0, 1, waleScore / completedRounds)}></Stat>
     {#if infoExpanded && whaleInfo}
         <div class="mb-5">
             <p class="mb-5">{whaleInfo.infoText}</p>
