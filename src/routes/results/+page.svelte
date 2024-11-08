@@ -11,6 +11,7 @@
     } from "$lib/question";
     import { questions } from "$lib/questionData";
     import { results, type QuizResult } from "$lib/stores/results";
+    import { remap } from "$lib/util";
 
     let sortedResults: [string, number][] = [];
     let answeredQuestions = 0;
@@ -49,8 +50,11 @@
         {#each sortedResults as whale, i}
             <WhaleInfo
                 whaleName={whale[0]}
-                waleScore={whale[1]}
-                completedRounds={answeredQuestions}
+                waleScore={Math.min(
+                    1,
+                    remap(-1, 1, 0, 1, whale[1] / answeredQuestions) *
+                        0.9 ** (i - 3)
+                )}
                 infoExpanded={i == 0}
             />
         {/each}

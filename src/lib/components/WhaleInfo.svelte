@@ -5,7 +5,6 @@
     import { remap } from "$lib/util";
 
     export let whaleName: string;
-    export let completedRounds: number;
     export let waleScore: number;
 
     let whaleInfo: WhaleInfo | undefined = whalesInfo.find((i) => {
@@ -17,7 +16,9 @@
 
 <div class="w-full mb-4">
     <div class="flex items-center gap-3 mb-3">
-        <h2 class="font-bold text-2xl">{whaleName}</h2>
+        <h2 class="font-bold text-2xl capitalize">
+            {whaleName}
+        </h2>
         <button
             on:click={() => {
                 infoExpanded = !infoExpanded;
@@ -30,7 +31,7 @@
             />
         </button>
     </div>
-    <Stat score={remap(-1, 1, 0, 1, waleScore / completedRounds)}></Stat>
+    <Stat score={waleScore}></Stat>
     {#if infoExpanded && whaleInfo}
         <div class="mb-5">
             <p class="mb-5">{whaleInfo.infoText}</p>
