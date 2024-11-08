@@ -8,26 +8,6 @@ declare global {
     // interface PageState {}
     // interface Platform {}
   }
-
-  type whaleValue = [
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number
-  ];
-  type answerType = "agree" | "neutral" | "disagree" | undefined;
-
-  type Question = {
-    question: string;
-    agree: WeightArray;
-    disagree: WeightArray;
-  };
 }
 
 export {};

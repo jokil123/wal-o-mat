@@ -1,106 +1,102 @@
 <script lang="ts">
-  import Quiz from "$lib/components/quiz.svelte";
-  import Results from "$lib/components/results.svelte";
-  import { questions } from "../../lib/questions";
-  import logoWalOMat from "$lib/assets/wal-o-mat_logo.svg";
+    import Quiz from "$lib/components/quiz.svelte";
+    import {
+        questions,
+        type AnswerType,
+        type Question,
+        type WhaleWeights,
+    } from "../../lib/questions";
+    import logoWalOMat from "$lib/assets/wal-o-mat_logo.svg";
+    import { results } from "$lib/stores/results";
+    import { goto } from "$app/navigation";
 
-  let answer: answerType;
-  let currentQuestion = 1;
-  let editedTotalQuestions = questions.length; // to incorperate the neutral choice it gets subtracted 1 if neutral is pressed to not make the values artificially lower but to just ignore the question
+    let answer: AnswerType;
+    let currentQuestion = 0;
 
-  let renderQuiz = true;
+    let points: WhaleWeights = {
+        blauwal: 0,
+        buckelwal: 0,
+        pottwal: 0,
+        orca: 0,
+        grauwal: 0,
+        zwergwal: 0,
+        belugawal: 0,
+        narwal: 0,
+        delfin: 0,
+    };
 
-  let pointsVector: whaleValue = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    function addAnswerWeights(q: Question, a: AnswerType) {
+        let m; // answer modifier
 
-  let whaleNames = [
-    "Blauwal",
-    "Buckelwal ",
-    "Pottwal",
-    "Orca",
-    "Grauwal",
-    "Spermwal",
-    "Finwal",
-    "Zwergwal",
-    "Belugawal",
-    "Narwal",
-  ];
+        switch (a) {
+            case "agree":
+                m = 1;
+                break;
+            case "neutral":
+                m = 0;
+                break;
+            case "disagree":
+                m = -1;
+                break;
+        }
 
-  function vecAdd(first: whaleValue, second: whaleValue): whaleValue {
-    second.forEach((elm, i) => {
-      second[i] = second[i] + first[i];
-    });
-
-    return second;
-  }
-
-  function nextQuestion() {
-    console.log("next question");
-    if (questions.length >= currentQuestion) {
-      if (answer == "agree") {
-        pointsVector = vecAdd(
-          pointsVector,
-          questions[currentQuestion - 1].agree
-        );
-      }
-
-      if (answer == "neutral") {
-        editedTotalQuestions -= 1;
-      }
-
-      if (answer == "disagree") {
-        pointsVector = vecAdd(
-          pointsVector,
-          questions[currentQuestion - 1].disagree
-        );
-      }
-
-      if (questions.length == currentQuestion) {
-        renderQuiz = false; // switch to results mode
-      }
+        points = {
+            blauwal: points.blauwal + q.weights.blauwal * m,
+            buckelwal: points.buckelwal + q.weights.buckelwal * m,
+            pottwal: points.pottwal + q.weights.pottwal * m,
+            orca: points.orca + q.weights.orca * m,
+            grauwal: points.grauwal + q.weights.grauwal * m,
+            zwergwal: points.zwergwal + q.weights.zwergwal * m,
+            belugawal: points.belugawal + q.weights.belugawal * m,
+            narwal: points.narwal + q.weights.narwal * m,
+            delfin: points.delfin + q.weights.delfin * m,
+        };
     }
 
-    currentQuestion += 1; // go to the next question
-    console.log(currentQuestion);
-  }
+    function submitQuestion() {
+        console.log("next question");
+        if (currentQuestion < questions.length - 1) {
+            addAnswerWeights(questions[currentQuestion], answer);
+            currentQuestion++;
+        }
 
-  console.log(currentQuestion);
+        gotoResults();
+    }
+
+    function gotoResults() {
+        results.set(points);
+        goto("/results");
+    }
 </script>
 
 <div
-  class="mx-auto max-w-screen-lg mt-16 flex flex-col justify-start px-6 lg:px-0"
+    class="mx-auto max-w-screen-lg mt-16 flex flex-col justify-start px-6 lg:px-0"
 >
-  <img src={logoWalOMat} alt="wal-o-mat logo" class="invert w-1/2" />
-  <p class="text-md font-semibold mt-3 lg:text-2xl">Atlantis 2024</p>
+    <img src={logoWalOMat} alt="wal-o-mat logo" class="invert w-1/2" />
+    <p class="text-md font-semibold mt-3 lg:text-2xl">Atlantis 2024</p>
 </div>
 
 <div class="mt-8 max-w-screen-xl mx-auto">
-  {#if renderQuiz}
-
     <div class="mx-4">
-      <Quiz
-        {questions}
-        {currentQuestion}
-        totalQuestions={questions.length}
-        bind:answer
-        on:buttonclick={() => {
-          nextQuestion();
-        }}
-      />
-
+        <Quiz
+            {questions}
+            currentQuestionIndex={currentQuestion}
+            totalQuestions={questions.length}
+            bind:answer
+            on:buttonclick={() => {
+                submitQuestion();
+            }}
+        />
     </div>
-  {:else}
-    <Results rounds={editedTotalQuestions} {pointsVector} whales={whaleNames}
-    ></Results>
-  {/if}
 </div>
 
 <style lang="scss">
-  .triangle {
-    width: 0px;
-    height: 0px;
-    border-style: solid;
-    border-width: 0 60px 60px 0px;
-    border-color: transparent transparent white transparent;
-    transform: rotate(90deg);
-  }
+    .triangle {
+        width: 0px;
+        height: 0px;
+        border-style: solid;
+        border-width: 0 60px 60px 0px;
+        border-color: transparent transparent white transparent;
+        transform: rotate(90deg);
+    }
 </style>
