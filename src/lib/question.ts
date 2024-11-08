@@ -49,6 +49,40 @@ export function addAnswerWeights(
     };
 }
 
+export function addWhaleWeights(
+    weight1: WhaleWeights,
+    weight2: WhaleWeights
+): WhaleWeights {
+    return {
+        blauwal: weight1.blauwal + weight2.blauwal,
+        buckelwal: weight1.buckelwal + weight2.buckelwal,
+        pottwal: weight1.pottwal + weight2.pottwal,
+        orca: weight1.orca + weight2.orca,
+        grauwal: weight1.grauwal + weight2.grauwal,
+        zwergwal: weight1.zwergwal + weight2.zwergwal,
+        belugawal: weight1.belugawal + weight2.belugawal,
+        narwal: weight1.narwal + weight2.narwal,
+        delfin: weight1.delfin + weight2.delfin,
+    };
+}
+
+export function multiplyWhaleWeights(
+    weights: WhaleWeights,
+    scalar: number
+): WhaleWeights {
+    return {
+        blauwal: weights.blauwal * scalar,
+        buckelwal: weights.buckelwal * scalar,
+        pottwal: weights.pottwal * scalar,
+        orca: weights.orca * scalar,
+        grauwal: weights.grauwal * scalar,
+        zwergwal: weights.zwergwal * scalar,
+        belugawal: weights.belugawal * scalar,
+        narwal: weights.narwal * scalar,
+        delfin: weights.delfin * scalar,
+    };
+}
+
 export function sortedWeights(w: WhaleWeights): [string, number][] {
     let entries = Object.entries(w) as [string, number][];
 
@@ -67,5 +101,17 @@ export function a2M(a: AnswerType): number {
             return 0;
         case "disagree":
             return -1;
+    }
+}
+
+export function randomAnswer(): AnswerType {
+    let rand = Math.random();
+
+    if (rand < 1 / 3) {
+        return "agree";
+    } else if (rand < 2 / 3) {
+        return "neutral";
+    } else {
+        return "disagree";
     }
 }

@@ -1,43 +1,17 @@
 import {
     addAnswerWeights,
+    addWhaleWeights,
+    multiplyWhaleWeights,
     newEmptyWeights,
+    randomAnswer,
     type AnswerType,
     type Question,
     type WhaleWeights,
 } from "$lib/question";
 import { questions } from "$lib/questionData";
-import { whalesInfo } from "$lib/whaleInfo";
 
-// // recursive function
-// function allAnsComb(
-//     questions: Question[],
-//     current: number,
-//     weights: WhaleWeights
-// ): WhaleWeights[] {
-//     if (current >= questions.length) {
-//         console.log("Returning");
-//         return [weights];
-//     }
-
-//     let question = questions[current];
-
-//     let answers: AnswerType[] = ["agree", "disagree", "neutral"];
-
-//     let answerWeights: WhaleWeights[] = [];
-
-//     answers.forEach((a) => {
-//         let newWeights = addAnswerWeights(weights, question, a);
-
-//         console.log(allAnsComb(questions, current + 1, newWeights));
-
-//         answerWeights.concat(allAnsComb(questions, current + 1, newWeights));
-//         console.log(answerWeights);
-//     });
-
-//     return answerWeights;
-// }
-
-function allAnsComb(n: number): AnswerType[][] {
+// this takes way to long lol
+function allAnswerComb(n: number): AnswerType[][] {
     let answers: AnswerType[][] = [[]];
 
     for (let i = 0; i < n; i++) {
@@ -59,6 +33,65 @@ function allAnsComb(n: number): AnswerType[][] {
     }
 
     return answers;
+}
+
+function randomAnswerComb(n: number): AnswerType[] {
+    let comb: AnswerType[] = [];
+
+    for (let i = 0; i < n; i++) {
+        comb.push(randomAnswer());
+    }
+
+    return comb;
+}
+
+function fuzzQuizFairness(
+    questions: Question[],
+    iterations: number
+): WhaleWeights {
+    let wins = newEmptyWeights();
+
+    for (let i = 0; i < iterations; i++) {
+        let answ = randomAnswerComb(questions.length);
+
+        let winner = setHighestToOne(weighAnswerComb(answ, questions));
+
+        wins = addWhaleWeights(wins, winner);
+    }
+
+    return multiplyWhaleWeights(wins, 1 / iterations);
+}
+
+function setHighestToOne(weights: WhaleWeights): WhaleWeights {
+    // Find the key with the highest value
+    const highestKey = Object.keys(weights).reduce((maxKey, currentKey) =>
+        weights[currentKey as keyof WhaleWeights] >
+        weights[maxKey as keyof WhaleWeights]
+            ? currentKey
+            : maxKey
+    ) as keyof WhaleWeights;
+
+    // Set the highest key to 1 and all others to 0
+    const result: WhaleWeights = Object.keys(weights).reduce((acc, key) => {
+        acc[key as keyof WhaleWeights] = key === highestKey ? 1 : 0;
+        return acc;
+    }, {} as WhaleWeights);
+
+    return result;
+}
+
+function weighAnswerComb(a: AnswerType[], q: Question[]): WhaleWeights {
+    if (q.length != a.length) {
+        throw new Error("Must be same length as number of questions");
+    }
+
+    let weight = newEmptyWeights();
+
+    q.forEach((e, i) => {
+        weight = addAnswerWeights(weight, e, a[i]);
+    });
+
+    return weight;
 }
 
 function naiveQuizFairness(questions: Question[]) {
@@ -85,16 +118,6 @@ console.log(`Quiz Fairness test (${questions.length})`);
 console.log("Naive Quiz Fairness:");
 console.log(naiveQuizFairness(questions));
 
-console.log("Comprehensive Quiz Fairness:");
-
-// let q = questions.slice(0, 1);
-// console.log(`number of questions: ${q.length}`);
-
-let comb = allAnsComb(questions.length);
-console.log(`Permutations: (${comb.length}) \n[`);
-comb.forEach((ans) => {
-    console.log(`\t${ans}`);
-});
-console.log("]");
-
-// console.log(allAnsComb(q, 0, newEmptyWeights()).length);
+let iterations = 1000000;
+console.log(`Fuzzed Quiz Fairness: ${iterations}`);
+console.log(fuzzQuizFairness(questions, iterations));
