@@ -6,7 +6,11 @@ import { writable, type Writable } from "svelte/store";
 // Get the value out of storage on load.
 let stored;
 if (browser) {
-    stored = JSON.parse(localStorage.results);
+    try {
+        stored = JSON.parse(localStorage.results);
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 // Set the stored value or a sane default.
