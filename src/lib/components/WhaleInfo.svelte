@@ -29,7 +29,7 @@
             />
         </button>
     </div>
-    <Stat score={waleScore / rounds}></Stat>
+    <Stat score={(waleScore / rounds) * 0.5 + 0.5}></Stat>
     {#if infoExpanded && whaleInfo}
         <div class="mb-5">
             <p class="mb-5">{whaleInfo.infoText}</p>
