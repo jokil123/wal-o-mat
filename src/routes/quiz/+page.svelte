@@ -4,6 +4,7 @@
     import { results } from "$lib/stores/results";
     import { goto } from "$app/navigation";
     import {
+        addAnswerWeights,
         newEmptyWeights,
         type AnswerType,
         type Question,
@@ -16,34 +17,6 @@
 
     let points = newEmptyWeights();
 
-    function addAnswerWeights(q: Question, a: AnswerType) {
-        let m; // answer modifier
-
-        switch (a) {
-            case "agree":
-                m = 1;
-                break;
-            case "neutral":
-                m = 0;
-                break;
-            case "disagree":
-                m = -1;
-                break;
-        }
-
-        points = {
-            blauwal: points.blauwal + q.weights.blauwal * m,
-            buckelwal: points.buckelwal + q.weights.buckelwal * m,
-            pottwal: points.pottwal + q.weights.pottwal * m,
-            orca: points.orca + q.weights.orca * m,
-            grauwal: points.grauwal + q.weights.grauwal * m,
-            zwergwal: points.zwergwal + q.weights.zwergwal * m,
-            belugawal: points.belugawal + q.weights.belugawal * m,
-            narwal: points.narwal + q.weights.narwal * m,
-            delfin: points.delfin + q.weights.delfin * m,
-        };
-    }
-
     function submitQuestion() {
         console.log("next question");
 
@@ -52,7 +25,11 @@
             return;
         }
 
-        addAnswerWeights(questions[currentQuestionIndex], answer);
+        points = addAnswerWeights(
+            points,
+            questions[currentQuestionIndex],
+            answer
+        );
         currentQuestionIndex++;
     }
 

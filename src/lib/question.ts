@@ -29,6 +29,26 @@ export function newEmptyWeights(): WhaleWeights {
     };
 }
 
+export function addAnswerWeights(
+    w: WhaleWeights,
+    q: Question,
+    a: AnswerType
+): WhaleWeights {
+    let m = a2M(a);
+
+    return {
+        blauwal: w.blauwal + q.weights.blauwal * m,
+        buckelwal: w.buckelwal + q.weights.buckelwal * m,
+        pottwal: w.pottwal + q.weights.pottwal * m,
+        orca: w.orca + q.weights.orca * m,
+        grauwal: w.grauwal + q.weights.grauwal * m,
+        zwergwal: w.zwergwal + q.weights.zwergwal * m,
+        belugawal: w.belugawal + q.weights.belugawal * m,
+        narwal: w.narwal + q.weights.narwal * m,
+        delfin: w.delfin + q.weights.delfin * m,
+    };
+}
+
 export function sortedWeights(w: WhaleWeights): [string, number][] {
     let entries = Object.entries(w) as [string, number][];
 
@@ -38,3 +58,14 @@ export function sortedWeights(w: WhaleWeights): [string, number][] {
 }
 
 export type AnswerType = "agree" | "neutral" | "disagree";
+
+export function a2M(a: AnswerType): number {
+    switch (a) {
+        case "agree":
+            return 1;
+        case "neutral":
+            return 0;
+        case "disagree":
+            return -1;
+    }
+}
