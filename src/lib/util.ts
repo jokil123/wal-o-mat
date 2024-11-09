@@ -43,3 +43,7 @@ export function smothstap(s: number, x: number): number {
 export function clamp(min: number, max: number, x: number) {
     return Math.min(Math.max(x, min), max);
 }
+
+export function year() {
+    return new Date().getFullYear();
+}

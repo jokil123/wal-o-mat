@@ -11,7 +11,7 @@
     } from "$lib/question";
     import { questions } from "$lib/questionData";
     import { results, type QuizResult } from "$lib/stores/results";
-    import { remap } from "$lib/util";
+    import { remap, year } from "$lib/util";
 
     let sortedResults: [string, number][] = [];
     let answeredQuestions = 0;
@@ -32,11 +32,19 @@
     }
 </script>
 
+<svelte:head>
+    <title>Results | Wal-O-Mat</title>
+</svelte:head>
+
 <div
     class="mx-auto max-w-screen-lg mt-16 flex flex-col justify-start px-6 lg:px-0"
 >
-    <img src={logoWalOMat} alt="wal-o-mat logo" class="invert w-1/2" />
-    <p class="text-md font-semibold mt-3 lg:text-2xl">Atlantis 2024</p>
+    <a href="/">
+        <img src={logoWalOMat} alt="wal-o-mat logo" class="invert w-1/2" />
+    </a>
+    <a href="/atlantis">
+        <p class="text-md font-semibold mt-3 lg:text-2xl">Atlantis {year()}</p>
+    </a>
 </div>
 
 <div class="mt-8 max-w-screen-xl mx-auto">
